@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "materiels",
+  "info": {
+    "singularName": "materiel",
+    "pluralName": "materiels",
+    "displayName": "Materiel"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "membre": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::membre.membre"
+    },
+    "type": {
+      "type": "string"
+    },
+    "date_attribution": {
+      "type": "date"
+    },
+    "etat": {
+      "type": "string"
+    },
+    "date_retoure": {
+      "type": "date"
+    },
+    "commentaire": {
+      "type": "text"
+    }
+  }
+}

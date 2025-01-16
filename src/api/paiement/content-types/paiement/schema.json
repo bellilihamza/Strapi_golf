@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "paiements",
+  "info": {
+    "singularName": "paiement",
+    "pluralName": "paiements",
+    "displayName": "Paiement"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "membre": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::membre.membre"
+    },
+    "date_paiement": {
+      "type": "date"
+    },
+    "montant": {
+      "type": "decimal"
+    },
+    "periode": {
+      "type": "date"
+    },
+    "methode_paiement": {
+      "type": "enumeration",
+      "enum": [
+        "cheque",
+        "espece"
+      ]
+    },
+    "statut": {
+      "type": "string"
+    },
+    "commentaire": {
+      "type": "text"
+    }
+  }
+}

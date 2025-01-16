@@ -369,6 +369,112 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiMaterielMateriel extends Struct.CollectionTypeSchema {
+  collectionName: 'materiels';
+  info: {
+    displayName: 'Materiel';
+    pluralName: 'materiels';
+    singularName: 'materiel';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    commentaire: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date_attribution: Schema.Attribute.Date;
+    date_retoure: Schema.Attribute.Date;
+    etat: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::materiel.materiel'
+    > &
+      Schema.Attribute.Private;
+    membre: Schema.Attribute.Relation<'oneToOne', 'api::membre.membre'>;
+    publishedAt: Schema.Attribute.DateTime;
+    type: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiMembreMembre extends Struct.CollectionTypeSchema {
+  collectionName: 'membres';
+  info: {
+    displayName: 'Membre';
+    pluralName: 'membres';
+    singularName: 'membre';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    adresse: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date_adhesion: Schema.Attribute.Date;
+    email: Schema.Attribute.Email;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::membre.membre'
+    > &
+      Schema.Attribute.Private;
+    naissance: Schema.Attribute.Date;
+    nom: Schema.Attribute.String;
+    photo: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    prenom: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    sexe: Schema.Attribute.String;
+    statut: Schema.Attribute.String;
+    telephone: Schema.Attribute.BigInteger;
+    type_membre: Schema.Attribute.Enumeration<['joueur', 'preparateur']>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    ville: Schema.Attribute.String;
+  };
+}
+
+export interface ApiPaiementPaiement extends Struct.CollectionTypeSchema {
+  collectionName: 'paiements';
+  info: {
+    displayName: 'Paiement';
+    pluralName: 'paiements';
+    singularName: 'paiement';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    commentaire: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date_paiement: Schema.Attribute.Date;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::paiement.paiement'
+    > &
+      Schema.Attribute.Private;
+    membre: Schema.Attribute.Relation<'oneToOne', 'api::membre.membre'>;
+    methode_paiement: Schema.Attribute.Enumeration<['cheque', 'espece']>;
+    montant: Schema.Attribute.Decimal;
+    periode: Schema.Attribute.Date;
+    publishedAt: Schema.Attribute.DateTime;
+    statut: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -878,6 +984,9 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::materiel.materiel': ApiMaterielMateriel;
+      'api::membre.membre': ApiMembreMembre;
+      'api::paiement.paiement': ApiPaiementPaiement;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
