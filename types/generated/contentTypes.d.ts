@@ -433,6 +433,7 @@ export interface ApiMaterielMateriel extends Struct.CollectionTypeSchema {
 export interface ApiMembreMembre extends Struct.CollectionTypeSchema {
   collectionName: 'membres';
   info: {
+    description: '';
     displayName: 'Membre';
     pluralName: 'membres';
     singularName: 'membre';
@@ -458,7 +459,7 @@ export interface ApiMembreMembre extends Struct.CollectionTypeSchema {
     photo: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     prenom: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    sexe: Schema.Attribute.String;
+    sexe: Schema.Attribute.Enumeration<['homme', 'femme']>;
     statut: Schema.Attribute.String;
     telephone: Schema.Attribute.BigInteger;
     type_membre: Schema.Attribute.Enumeration<['joueur', 'preparateur']>;

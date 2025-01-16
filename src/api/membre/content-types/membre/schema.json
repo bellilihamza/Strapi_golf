@@ -4,7 +4,8 @@
   "info": {
     "singularName": "membre",
     "pluralName": "membres",
-    "displayName": "Membre"
+    "displayName": "Membre",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -15,9 +16,6 @@
       "type": "string"
     },
     "prenom": {
-      "type": "string"
-    },
-    "sexe": {
       "type": "string"
     },
     "naissance": {
@@ -46,17 +44,25 @@
       ]
     },
     "photo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "statut": {
       "type": "string"
+    },
+    "sexe": {
+      "type": "enumeration",
+      "enum": [
+        "homme",
+        "femme"
+      ]
     }
   }
 }
