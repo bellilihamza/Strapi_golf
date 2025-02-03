@@ -1,18 +1,17 @@
 {
   "kind": "collectionType",
-  "collectionName": "competitions",
+  "collectionName": "evenements",
   "info": {
-    "singularName": "competition",
-    "pluralName": "competitions",
-    "displayName": "Competition",
-    "description": ""
+    "singularName": "evenement",
+    "pluralName": "evenements",
+    "displayName": "Evenement"
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "nom_competition": {
+    "nom": {
       "type": "string"
     },
     "date": {
@@ -21,11 +20,11 @@
     "lieu": {
       "type": "string"
     },
-    "categorie": {
+    "responsable": {
       "type": "string"
     },
-    "organisateur": {
-      "type": "string"
+    "commentaire": {
+      "type": "text"
     }
   }
 }

@@ -54,14 +54,29 @@
         "audios"
       ]
     },
-    "statut": {
-      "type": "string"
-    },
     "sexe": {
       "type": "enumeration",
       "enum": [
         "homme",
         "femme"
+      ]
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "hcp": {
+      "type": "integer",
+      "max": 40,
+      "min": 0,
+      "default": 40
+    },
+    "statut": {
+      "type": "enumeration",
+      "enum": [
+        "Actif",
+        "Non Actif"
       ]
     }
   }

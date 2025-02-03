@@ -372,6 +372,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiCompetitionCompetition extends Struct.CollectionTypeSchema {
   collectionName: 'competitions';
   info: {
+    description: '';
     displayName: 'Competition';
     pluralName: 'competitions';
     singularName: 'competition';
@@ -380,17 +381,86 @@ export interface ApiCompetitionCompetition extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    categorie: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    date: Schema.Attribute.Date;
+    lieu: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::competition.competition'
     > &
       Schema.Attribute.Private;
+    nom_competition: Schema.Attribute.String;
+    organisateur: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiEntraineurEntraineur extends Struct.CollectionTypeSchema {
+  collectionName: 'entraineurs';
+  info: {
+    displayName: 'Entraineur';
+    pluralName: 'entraineurs';
+    singularName: 'entraineur';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date_debut_contrat: Schema.Attribute.Date;
+    email: Schema.Attribute.Email;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::entraineur.entraineur'
+    > &
+      Schema.Attribute.Private;
+    nom: Schema.Attribute.String;
+    prenom: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    specialite: Schema.Attribute.String;
+    telephone: Schema.Attribute.BigInteger;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiEvenementEvenement extends Struct.CollectionTypeSchema {
+  collectionName: 'evenements';
+  info: {
+    displayName: 'Evenement';
+    pluralName: 'evenements';
+    singularName: 'evenement';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    commentaire: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date: Schema.Attribute.Date;
+    lieu: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::evenement.evenement'
+    > &
+      Schema.Attribute.Private;
     nom: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    responsable: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -448,6 +518,15 @@ export interface ApiMembreMembre extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     date_adhesion: Schema.Attribute.Date;
     email: Schema.Attribute.Email;
+    hcp: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 40;
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<40>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -460,12 +539,16 @@ export interface ApiMembreMembre extends Struct.CollectionTypeSchema {
     prenom: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     sexe: Schema.Attribute.Enumeration<['homme', 'femme']>;
-    statut: Schema.Attribute.String;
+    statut: Schema.Attribute.Enumeration<['Actif', 'Non Actif']>;
     telephone: Schema.Attribute.BigInteger;
     type_membre: Schema.Attribute.Enumeration<['joueur', 'preparateur']>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    users_permissions_user: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
     ville: Schema.Attribute.String;
   };
 }
@@ -498,6 +581,72 @@ export interface ApiPaiementPaiement extends Struct.CollectionTypeSchema {
     periode: Schema.Attribute.Date;
     publishedAt: Schema.Attribute.DateTime;
     statut: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPostPost extends Struct.CollectionTypeSchema {
+  collectionName: 'posts';
+  info: {
+    displayName: 'Post';
+    pluralName: 'posts';
+    singularName: 'post';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    commentaire: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date: Schema.Attribute.Date;
+    dure: Schema.Attribute.String;
+    entraineur: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::post.post'> &
+      Schema.Attribute.Private;
+    membres: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::users-permissions.user'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    type_exercice: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiStockStock extends Struct.CollectionTypeSchema {
+  collectionName: 'stocks';
+  info: {
+    displayName: 'Stock';
+    pluralName: 'stocks';
+    singularName: 'stock';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    categorie: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    fournisseur: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::stock.stock'> &
+      Schema.Attribute.Private;
+    nom: Schema.Attribute.String;
+    prix: Schema.Attribute.Decimal;
+    publishedAt: Schema.Attribute.DateTime;
+    quantite: Schema.Attribute.Integer;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -959,7 +1108,6 @@ export interface PluginUsersPermissionsUser
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
@@ -979,11 +1127,13 @@ export interface PluginUsersPermissionsUser
       'plugin::users-permissions.user'
     > &
       Schema.Attribute.Private;
+    naissance: Schema.Attribute.Date & Schema.Attribute.Required;
     password: Schema.Attribute.Password &
       Schema.Attribute.Private &
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    post: Schema.Attribute.Relation<'manyToOne', 'api::post.post'>;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
@@ -1014,9 +1164,13 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::competition.competition': ApiCompetitionCompetition;
+      'api::entraineur.entraineur': ApiEntraineurEntraineur;
+      'api::evenement.evenement': ApiEvenementEvenement;
       'api::materiel.materiel': ApiMaterielMateriel;
       'api::membre.membre': ApiMembreMembre;
       'api::paiement.paiement': ApiPaiementPaiement;
+      'api::post.post': ApiPostPost;
+      'api::stock.stock': ApiStockStock;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

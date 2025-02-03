@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "entraineurs",
+  "info": {
+    "singularName": "entraineur",
+    "pluralName": "entraineurs",
+    "displayName": "Entraineur"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nom": {
+      "type": "string"
+    },
+    "prenom": {
+      "type": "string"
+    },
+    "specialite": {
+      "type": "string"
+    },
+    "telephone": {
+      "type": "biginteger"
+    },
+    "date_debut_contrat": {
+      "type": "date"
+    },
+    "email": {
+      "type": "email"
+    }
+  }
+}
